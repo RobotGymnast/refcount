@@ -4,6 +4,7 @@ synopsis:           Container with element counts
 category:           Data
 license:            MIT
 author:             Ben Foppa
+stability:          Experimental
 homepage:           https://github.com/RobotGymnast/refcount
 maintainer:         benjamin.foppa@gmail.com
 build-type:         Simple

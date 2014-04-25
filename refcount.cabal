@@ -12,7 +12,7 @@ cabal-version:      >= 1.9.2
 
 library
     hs-source-dirs:   .
-    ghc-options:      -Wall -Werror -threaded -rtsopts=all
+    ghc-options:      -Wall
     exposed-modules:  Data.Refcount
 
     build-depends: base == 4.*

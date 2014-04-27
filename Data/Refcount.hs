@@ -1,4 +1,5 @@
 module Data.Refcount ( Refcount (..)
+                     , refcount
                      , refcounted
                      , insertRef
                      , deleteRef
@@ -6,6 +7,7 @@ module Data.Refcount ( Refcount (..)
                      ) where
 
 import Control.Applicative ((<$>))
+import Data.Maybe
 import Data.Monoid
 import Data.Hashable
 import Data.HashMap.Strict as HashMap
@@ -20,6 +22,10 @@ instance (Hashable a, Eq a) => Monoid (Refcount a) where
 -- | Retrieve the refcounted objects.
 refcounted :: Refcount a -> [a]
 refcounted = keys . unRefcount
+
+-- | Lookup the count of an object.
+refcount :: (Hashable a, Eq a) => a -> Refcount a -> Int
+refcount a (Refcount h) = fromMaybe 0 $ HashMap.lookup a h
 
 -- | Insert an object and increment its count.
 insertRef :: (Hashable a, Eq a) => a -> Refcount a -> Refcount a

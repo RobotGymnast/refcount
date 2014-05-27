@@ -1,5 +1,5 @@
 name:               refcount
-version:            0.0.1
+version:            0.0.1.0
 synopsis:           Container with element counts
 category:           Data
 license:            MIT
@@ -16,9 +16,9 @@ library
     exposed-modules:  Data.Refcount
 
     build-depends: base == 4.*
-                 , hashable == 1.2.1.*
-                 , unordered-containers == 0.2.4.*
+                 , hashable == 1.2.*
+                 , unordered-containers == 0.2.*
 
 source-repository head
   type: git
-  location: https://github.com/RobotGymnast/refcount
+  location: https://github.com/RobotGymnast/refcount.git

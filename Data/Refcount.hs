@@ -14,13 +14,19 @@ import Data.Maybe
 import Data.Monoid
 import Data.Hashable
 import Data.HashMap.Strict as HashMap
+import GHC.Generics
+import Test.QuickCheck (Arbitrary (..))
 
 -- | Maintain a collection of objects with duplication counts.
 newtype Refcount a = Refcount { unRefcount :: HashMap a Int }
+  deriving (Show, Generic, Eq)
 
 instance (Hashable a, Eq a) => Monoid (Refcount a) where
   mempty = Refcount empty
   mappend (Refcount a) (Refcount b) = Refcount $ unionWith (+) a b
+
+instance (Arbitrary a, Hashable a, Eq a) => Arbitrary (Refcount a) where
+  arbitrary = Data.Refcount.fromList <$> arbitrary
 
 -- | Retrieve the refcounted objects.
 refcounted :: Refcount a -> [a]

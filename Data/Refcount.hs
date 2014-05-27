@@ -1,12 +1,15 @@
+{-# LANGUAGE DeriveGeneric #-}
 module Data.Refcount ( Refcount (..)
                      , refcount
                      , refcounted
                      , insertRef
                      , deleteRef
                      , removeRef
+                     , Data.Refcount.fromList
                      ) where
 
 import Control.Applicative ((<$>))
+import Data.Foldable as Foldable
 import Data.Maybe
 import Data.Monoid
 import Data.Hashable
@@ -22,6 +25,10 @@ instance (Hashable a, Eq a) => Monoid (Refcount a) where
 -- | Retrieve the refcounted objects.
 refcounted :: Refcount a -> [a]
 refcounted = keys . unRefcount
+
+-- | Create a counted structure from a list of elements.
+fromList :: (Hashable a, Eq a) => [a] -> Refcount a
+fromList = Foldable.foldl' (\rc r -> insertRef r rc) mempty
 
 -- | Lookup the count of an object.
 refcount :: (Hashable a, Eq a) => a -> Refcount a -> Int

@@ -1,5 +1,5 @@
 name:               refcount
-version:            0.0.1.0
+version:            0.1.0
 synopsis:           Container with element counts
 category:           Data
 license:            MIT

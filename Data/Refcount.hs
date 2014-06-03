@@ -1,6 +1,7 @@
 {-# LANGUAGE DeriveGeneric #-}
 module Data.Refcount ( Refcount (..)
                      , refcount
+                     , refcounts
                      , refcounted
                      , insertRef
                      , deleteRef
@@ -31,6 +32,10 @@ instance (Arbitrary a, Hashable a, Eq a) => Arbitrary (Refcount a) where
 -- | Retrieve the refcounted objects.
 refcounted :: Refcount a -> [a]
 refcounted = keys . unRefcount
+
+-- | Retrieve objects and their counts.
+refcounts :: Refcount a -> [(a, Int)]
+refcounts = HashMap.toList . unRefcount
 
 -- | Create a counted structure from a list of elements.
 fromList :: (Hashable a, Eq a) => [a] -> Refcount a
